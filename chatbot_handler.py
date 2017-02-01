@@ -1,5 +1,6 @@
 import json
 
+import requests
 from flask import request, Flask
 
 app = Flask(__name__)
@@ -15,12 +16,27 @@ def serve():
 
 @app.route('/receive', methods=['POST'])
 def receive():
-    print request.data
+    print(request.data)
     data = json.loads(request.data)
 
     for entry in data['entry']:
         for message in entry['messaging']:
-            print message['sender']['id']
-            print message['message']['text']
+            sender = message['sender']['id']
+            content = message['message']['text']
+
+            resp_msg = {
+                'recipient': {
+                    'id': sender,
+                },
+                'message': {
+                    'text': content,
+                },
+            }
+
+            requests.post(
+                'https://graph.facebook.com/v2.6/me/messages',
+                params={'access_token': token},
+                data=resp_msg,
+            )
 
     return 'success'
