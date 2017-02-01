@@ -1,2 +1,1 @@
-export FLASK_APP=chat_handler.py
-flask run
+web: gunicorn -w 4 chat_handler:app
