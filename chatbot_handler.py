@@ -31,27 +31,30 @@ def receive():
     print(request.data)
     data = json.loads(request.data)
 
-    for entry in data['entry']:
-        for message in entry['messaging']:
-            sender = message['sender']['id']
-            content = message['message']['text']
-            koush_resp = koush_resps[int(random() * len(koush_resps))] % content  # noqa
+    try:
+        for entry in data['entry']:
+            for message in entry['messaging']:
+                sender = message['sender']['id']
+                content = message['message']['text']
+                koush_resp = koush_resps[int(random() * len(koush_resps))] % content  # noqa
 
-            resp_msg = {
-                'recipient': {
-                    'id': sender,
-                },
-                'message': {
-                    'text': koush_resp,
-                },
-            }
+                resp_msg = {
+                    'recipient': {
+                        'id': sender,
+                    },
+                    'message': {
+                        'text': koush_resp,
+                    },
+                }
 
-            response = requests.post(
-                'https://graph.facebook.com/v2.6/me/messages',
-                params={'access_token': token},
-                json=resp_msg,
-            )
-            print('Sent requests %s' % json.dumps(resp_msg))
-            print('Received response %s' % response.text)
+                response = requests.post(
+                    'https://graph.facebook.com/v2.6/me/messages',
+                    params={'access_token': token},
+                    json=resp_msg,
+                )
+                print('Sent requests %s' % json.dumps(resp_msg))
+                print('Received response %s' % response.text)
+    except Exception:
+        return 'not handled'
 
     return 'success'
