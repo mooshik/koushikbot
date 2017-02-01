@@ -33,11 +33,12 @@ def receive():
                 },
             }
 
-            requests.post(
+            response = requests.post(
                 'https://graph.facebook.com/v2.6/me/messages',
                 params={'access_token': token},
                 data=resp_msg,
             )
-            print('Sent requests')
+            print('Sent requests %s' % json.dumps(resp_msg))
+            print('Received response %s' % response.text)
 
     return 'success'
