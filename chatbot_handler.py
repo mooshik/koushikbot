@@ -23,6 +23,9 @@ koush_resps = [
     'sleep is boring -- %s is better',
     '%s this',
     'whips out %s',
+    'YAAAAS %s YAAAAAAS',
+    'Hello!!!',
+    '%s this: whips out financial crisis of 2008'
 ]
 
 
