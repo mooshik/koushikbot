@@ -26,7 +26,8 @@ koush_resps = [
     'YAAAAS {inbound_msg} YAAAAAAS',
     'Hello!!!',
     '{inbound_msg} this: whips out financial crisis of 2008',
-    'naaaaaaaas'
+    'naaaaaaaas',
+    'wooow TFTI TO {inbound_msg}'
 ]
 
 
