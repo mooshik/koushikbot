@@ -13,4 +13,4 @@ def serve():
 
 @app.route('/receive', methods=['POST'])
 def receive():
-    print request.body.__dict__
+    print request.data
