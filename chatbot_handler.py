@@ -20,12 +20,12 @@ def serve():
 
 
 koush_resps = [
-    'sleep is boring -- %s is better',
-    '%s this',
-    'whips out %s',
-    'YAAAAS %s YAAAAAAS',
+    'sleep is boring -- {inbound_msg} is better',
+    '{inbound_msg} this',
+    'whips out {inbound_msg}',
+    'YAAAAS {inbound_msg} YAAAAAAS',
     'Hello!!!',
-    '%s this: whips out financial crisis of 2008',
+    '{inbound_msg} this: whips out financial crisis of 2008',
     'naaaaaaaas'
 ]
 
@@ -40,7 +40,7 @@ def receive():
             for message in entry['messaging']:
                 sender = message['sender']['id']
                 content = message['message']['text']
-                koush_resp = koush_resps[int(random() * len(koush_resps))] % content  # noqa
+                koush_resp = koush_resps[int(random() * len(koush_resps))].format(inbound_msg=content)  # noqa
 
                 resp_msg = {
                     'recipient': {
