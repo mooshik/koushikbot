@@ -1,17 +1,29 @@
 import json
 
+from random import random
 import requests
 from flask import request, Flask
 
 app = Flask(__name__)
 
-token = 'EAAZAN5XZBKMSUBAL0QZCjHyhl3OqAGwcoE4kZAQiGowvjQWYk5ROIcsD2mhnBgfvb0YNoPxaOr9C4AOhuPGV9zEy3ZCpekxkPW5jcYZAySKfMLDbQqlQrT3t6roRfz9l2cBFfmyvLM9naO2xOfZBNruVuWoTZCvlyZBwZBa6BmkDOYHwZDZD'
+token = 'EAAZAN5XZBKMSUBAL0QZCjHyhl3OqAGwcoE4kZAQiGowvjQWYk5ROIcsD2mhnBgfvb0YNoPxaOr9C4AOhuPGV9zEy3ZCpekxkPW5jcYZAySKfMLDbQqlQrT3t6roRfz9l2cBFfmyvLM9naO2xOfZBNruVuWoTZCvlyZBwZBa6BmkDOYHwZDZD'  # noqa
+
 
 @app.route('/receive', methods=['GET'])
 def serve():
-    if request.args.get('hub.mode') == 'subscribe' and request.args.get('hub.verify_token') == 'koushik':
+    if (
+        request.args.get('hub.mode') == 'subscribe' and
+        request.args.get('hub.verify_token') == 'koushik'
+    ):
         return request.args.get('hub.challenge')
     return 'fuck_you'
+
+
+koush_resps = [
+    'sleep is boring -- %s is better',
+    '%s this',
+    'whips out %s',
+]
 
 
 @app.route('/receive', methods=['POST'])
@@ -23,13 +35,14 @@ def receive():
         for message in entry['messaging']:
             sender = message['sender']['id']
             content = message['message']['text']
+            koush_resp = koush_resps[int(random() * len(koush_resps))] % content  # noqa
 
             resp_msg = {
                 'recipient': {
                     'id': sender,
                 },
                 'message': {
-                    'text': content,
+                    'text': koush_resp,
                 },
             }
 
