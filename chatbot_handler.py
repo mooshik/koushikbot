@@ -54,7 +54,8 @@ def receive():
                 )
                 print('Sent requests %s' % json.dumps(resp_msg))
                 print('Received response %s' % response.text)
-    except Exception:
+    except Exception as e:
+        print(e)
         return 'not handled'
 
     return 'success'
