@@ -38,5 +38,6 @@ def receive():
                 params={'access_token': token},
                 data=resp_msg,
             )
+            print('Sent requests')
 
     return 'success'
