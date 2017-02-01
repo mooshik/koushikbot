@@ -2,7 +2,7 @@ from flask import request, Flask
 
 app = Flask(__name__)
 
-@app.route('/jason')
+@app.route('/receive')
 def serve():
     if request.args.get('hub.mode') == 'subscribe' and request.args.get('hub.verify_token') == 'koushik':
         return request.args.get('hub.challenge')
