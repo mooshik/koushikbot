@@ -1,1 +1,1 @@
-web: gunicorn -w 4 chat_handler:app
+web: gunicorn -w 4 chatbot_handler:app
