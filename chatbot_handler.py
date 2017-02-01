@@ -1,8 +1,10 @@
+import json
+
 from flask import request, Flask
 
 app = Flask(__name__)
 
-token = 'EAAZAN5XZBKMSUBABWAvzebHZB3myopwucptBEaKmBgaLdam9aFpC2d4rb7QiRiI3wY7Hr8WjLYECPc4qXRATodacvOxS1ZB7g4XRq0SNbVhoZB71l5phRZAJ4v2eOR9GxhxjBDfBZA4OtKOpCikbSPaLLqsOCazkaoPmZAHZAutyFKAZDZD'
+token = 'EAAZAN5XZBKMSUBAL0QZCjHyhl3OqAGwcoE4kZAQiGowvjQWYk5ROIcsD2mhnBgfvb0YNoPxaOr9C4AOhuPGV9zEy3ZCpekxkPW5jcYZAySKfMLDbQqlQrT3t6roRfz9l2cBFfmyvLM9naO2xOfZBNruVuWoTZCvlyZBwZBa6BmkDOYHwZDZD'
 
 @app.route('/receive', methods=['GET'])
 def serve():
@@ -14,3 +16,11 @@ def serve():
 @app.route('/receive', methods=['POST'])
 def receive():
     print request.data
+    data = json.loads(request.data)
+
+    for entry in data['entry']:
+        for message in entry['messaging']:
+            print message['sender']['id']
+            print message['message']['text']
+
+    return 'success'
